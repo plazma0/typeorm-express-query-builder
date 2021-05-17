@@ -2,7 +2,7 @@
   "name": "typeorm-express-query-builder",
   "version": "1.2.0",
   "description": "Easily transform an Express req.query into TypeORM query",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p .",
     "build:watch": "tsc -p . --watch",
