@@ -18,6 +18,25 @@ describe('Test Query Builder #build', () => {
       },
       skip: 0,
       take: ITEMS_PER_PAGE,
+      withDeleted: false
+    });
+  });
+
+  it('should build a query with withDeleted equal to true', () => {
+    const queryBuilder = new QueryBuilder({
+      name: 'rjlopezdev',
+      email__contains: '@gmail.com',
+      withDeleted: 'true'
+    });
+    const build = queryBuilder.build();
+    expect(build).toEqual({
+      where: {
+        name: 'rjlopezdev',
+        email: Like('%@gmail.com%'),
+      },
+      skip: 0,
+      take: ITEMS_PER_PAGE,
+      withDeleted: true
     });
   });
 
@@ -35,6 +54,7 @@ describe('Test Query Builder #build', () => {
       },
       skip: 0,
       take: ITEMS_PER_PAGE,
+      withDeleted: false
     });
   });
 
@@ -52,6 +72,7 @@ describe('Test Query Builder #build', () => {
       },
       skip: ITEMS_PER_PAGE,
       take: ITEMS_PER_PAGE,
+      withDeleted: false
     });
   });
 
@@ -69,6 +90,7 @@ describe('Test Query Builder #build', () => {
       },
       skip: 50,
       take: ITEMS_PER_PAGE,
+      withDeleted: false
     });
   });
 
@@ -87,6 +109,7 @@ describe('Test Query Builder #build', () => {
       },
       skip: 20,
       take: 10,
+      withDeleted: false
     });
   });
 
@@ -102,6 +125,7 @@ describe('Test Query Builder #build', () => {
           name: 'rjlopezdev',
           email: Like('%@gmail.com%'),
         },
+        withDeleted: false
       });
     });
 
@@ -119,6 +143,7 @@ describe('Test Query Builder #build', () => {
         },
         skip: 0,
         take: ITEMS_PER_PAGE,
+        withDeleted: false
       });
     })
 
@@ -135,6 +160,7 @@ describe('Test Query Builder #build', () => {
         },
         skip: 0,
         take: ITEMS_PER_PAGE,
+        withDeleted: false
       });
     })
 });
@@ -282,5 +308,36 @@ describe('Test QueryBuilder #setRelations', () => {
       relations: ['foo1', 'foo2']
     });
     expect(queryBuilder.expressQuery['with']).toBeUndefined()
+  })
+})
+
+describe('Test QueryBuilder #setWithDeleted', () => {
+
+  it('should return a withDeleted equals to false when withDeleted property is not provided', () => {
+    const queryBuilder: any = new QueryBuilder({});
+    queryBuilder.setWithDeleted();
+    expect(queryBuilder.typeORMQuery).toEqual({
+      withDeleted: false
+    })
+  })
+
+  it('should return a withDeleted equals to true when withDeleted property is true', () => {
+    const queryBuilder: any = new QueryBuilder({
+      withDeleted: 'true'
+    });
+    queryBuilder.setWithDeleted();
+    expect(queryBuilder.typeORMQuery).toEqual({
+      withDeleted: true
+    });
+  })
+
+  it('should return a withDeleted equals to false when withDeleted property is not true', () => {
+    const queryBuilder: any = new QueryBuilder({
+      withDeleted: 'nottrue'
+    });
+    queryBuilder.setWithDeleted();
+    expect(queryBuilder.typeORMQuery).toEqual({
+      withDeleted: false
+    });
   })
 })

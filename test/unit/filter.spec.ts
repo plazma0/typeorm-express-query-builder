@@ -79,6 +79,7 @@ describe('Test Query Builder', () => {
       },
       skip: 0,
       take: 25,
+      withDeleted: false
     });
   });
 
@@ -96,6 +97,7 @@ describe('Test Query Builder', () => {
       },
       skip: 0,
       take: 25,
+      withDeleted: false
     });
   });
 
@@ -113,6 +115,7 @@ describe('Test Query Builder', () => {
       },
       skip: 25,
       take: 25,
+      withDeleted: false
     });
   });
 
@@ -130,6 +133,7 @@ describe('Test Query Builder', () => {
       },
       skip: 50,
       take: 25,
+      withDeleted: false
     });
   });
 
@@ -148,6 +152,7 @@ describe('Test Query Builder', () => {
       },
       skip: 20,
       take: 10,
+      withDeleted: false
     });
   });
 });

@@ -24,6 +24,7 @@ export class QueryBuilder {
     delete this.expressQuery['pagination'];
     this.setOrder();
     this.setRelations();
+    this.setWithDeleted();
 
     for (const queryItem in this.expressQuery) {
       const filter = factory.get(this.typeORMQuery, queryItem, this.expressQuery[queryItem]);
@@ -38,6 +39,13 @@ export class QueryBuilder {
       ? ( this.expressQuery['page'] - 1) * ( this.expressQuery['limit'] || ITEMS_PER_PAGE)
       : 0;
     delete this.expressQuery['page'];
+  }
+
+  private setWithDeleted() {
+    this.typeORMQuery['withDeleted'] = (this.expressQuery['withDeleted'] && this.expressQuery['withDeleted'] === 'true')
+      ? true
+      : false;
+    delete this.expressQuery['withDeleted']
   }
 
   private setLimit() {
