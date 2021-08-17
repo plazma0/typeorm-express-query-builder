@@ -47,7 +47,8 @@ describe('Test Express integration', () => {
             email: Like('%@gmail.com%')
           },
           skip: 0,
-          take: 25
+          take: 25,
+          withDeleted: false
         });
         done();
       })
@@ -64,7 +65,8 @@ describe('Test Express integration', () => {
             email: Like('%@gmail.com%')
           },
           skip: 0,
-          take: 25
+          take: 25,
+          withDeleted: false
         });
         done();
       })
@@ -85,7 +87,8 @@ describe('Test Express integration', () => {
             email: Like('%@gmail.com%')
           },
           skip: 0,
-          take: 25
+          take: 25,
+          withDeleted: false
         });
         done();
       })
