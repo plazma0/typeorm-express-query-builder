@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.QueryBuilder = void 0;
 const filter_factory_1 = require("./filter-factory");
 const default_config_1 = require("./default-config");
 class QueryBuilder {
@@ -17,6 +18,7 @@ class QueryBuilder {
         delete this.expressQuery['pagination'];
         this.setOrder();
         this.setRelations();
+        this.setWithDeleted();
         for (const queryItem in this.expressQuery) {
             const filter = factory.get(this.typeORMQuery, queryItem, this.expressQuery[queryItem]);
             filter.buildQuery();
@@ -28,6 +30,12 @@ class QueryBuilder {
             ? (this.expressQuery['page'] - 1) * (this.expressQuery['limit'] || default_config_1.ITEMS_PER_PAGE)
             : 0;
         delete this.expressQuery['page'];
+    }
+    setWithDeleted() {
+        this.typeORMQuery['withDeleted'] = (this.expressQuery['withDeleted'] && this.expressQuery['withDeleted'] === 'true')
+            ? true
+            : false;
+        delete this.expressQuery['withDeleted'];
     }
     setLimit() {
         this.typeORMQuery['take'] = (this.expressQuery['limit'] && this.expressQuery['limit'] > 0)
